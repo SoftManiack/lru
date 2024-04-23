@@ -1,4 +1,6 @@
-package lru
+package main
+
+import "fmt"
 
 type Node struct {
 	previous *Node
@@ -7,41 +9,77 @@ type Node struct {
 }
 
 type DoubleLinkedList struct {
-	heade *Node
+	head  *Node
 	tail  *Node
 	size  int
+	count int
 }
 
-func (l *DoubleLinkedList) NewDoubleLinkedList(size int) *DoubleLinkedList {
+func NewDoubleLinkedList(size int) *DoubleLinkedList {
 
-	return &DoubleLinkedList{
-		heade: nil,
-		tail:  nil,
-		size:  size,
+	doubleLinkedList := &DoubleLinkedList{
+		head: nil,
+		tail: nil,
+		size: size,
 	}
+
+	return doubleLinkedList
 }
 
-func (l *DoubleLinkedList) Add(value string) Node {
+// Вставка в начало списка
+func (l *DoubleLinkedList) insertBegin(value string) Node {
 
 	var Node Node
 
-	if l.heade == nil {
-		Node.value = value
-		Node.previous = nil
-		Node.next = nil
+	fmt.Println("*")
+	if l.count == l.size {
 
-		l.heade = &Node
-		l.tail = &Node
-		l.size += 1
+		l.tail = l.tail.next
+		l.tail.previous = nil
+	} else {
+		if l.head == nil {
+			Node.value = value
+			Node.previous = nil
+			Node.next = nil
+
+			l.head = &Node
+			l.tail = &Node
+			l.count += 1
+		} else {
+			Node.value = value
+			l.head.previous = &Node
+			l.head = &Node
+			l.count += 1
+		}
+
 	}
 
 	return Node
 }
 
-func (l *DoubleLinkedList) Remove() {
+func (l *DoubleLinkedList) RemoveBegin() string {
+
+	if l.head == nil {
+		return ""
+	}
+
+	var result string = l.head.value
+
+	if l.head == l.tail {
+		l.head = nil
+		l.tail = nil
+	} else {
+		l.head = l.head.next
+		l.head.previous = nil
+	}
+
+	l.count -= 1
+
+	return result
 
 }
 
+// Вставка в конец
 func (l *DoubleLinkedList) insertEnd(value string) {
 	if l.tail == nil {
 		node := Node{
@@ -51,7 +89,7 @@ func (l *DoubleLinkedList) insertEnd(value string) {
 		}
 
 		l.tail = &node
-		l.heade = &node
+		l.head = &node
 
 	} else {
 		node := Node{
