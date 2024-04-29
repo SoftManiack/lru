@@ -19,5 +19,5 @@ func main() {
 func insertBeginList(key string, value string) {
 
 	hashMap[key] = value
-	doubleLinkedList.insertBegin(key)
+	doubleLinkedList.insert(key)
 }

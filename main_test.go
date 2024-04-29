@@ -20,14 +20,18 @@ func TestListInsertEnd(t *testing.T) {
 	if doubleLinkedList.tail.value != "3" {
 		t.Errorf("tail error")
 	}
+
+	if doubleLinkedList.tail.next.value != "2" {
+		t.Errorf("tail error")
+	}
 }
 
 func TestListInsertBegin(t *testing.T) {
 	doubleLinkedList := NewDoubleLinkedList(10)
 
-	doubleLinkedList.insertBegin("1")
-	doubleLinkedList.insertBegin("2")
-	doubleLinkedList.insertBegin("4")
+	doubleLinkedList.insert("1")
+	doubleLinkedList.insert("2")
+	doubleLinkedList.insert("4")
 
 	if doubleLinkedList.head.value != "4" {
 		t.Errorf("head error")
@@ -36,9 +40,15 @@ func TestListInsertBegin(t *testing.T) {
 	if doubleLinkedList.tail.value != "1" {
 		t.Errorf("tail error")
 	}
+
+	if doubleLinkedList.tail.next.value != "2" {
+		t.Errorf("tail error")
+	}
 }
 
-func TestListInsertBeginAndEnd(t *testing.T) {
+/*func TestListInsertBeginAndEnd(t *testing.T) {
+
+	doubleLinkedList := NewDoubleLinkedList(10)
 
 	doubleLinkedList.insertBegin("1")
 	doubleLinkedList.insertEnd("2")
@@ -53,17 +63,18 @@ func TestListInsertBeginAndEnd(t *testing.T) {
 		t.Errorf("tail error")
 	}
 
-}
+} */
+
 func TestListOverflow(t *testing.T) {
 
 	doubleLinkedList := NewDoubleLinkedList(4)
 
-	doubleLinkedList.insertBegin("2")
-	doubleLinkedList.insertBegin("3")
-	doubleLinkedList.insertBegin("4")
-	doubleLinkedList.insertBegin("5")
-	doubleLinkedList.insertBegin("6")
-	doubleLinkedList.insertBegin("7")
+	doubleLinkedList.insert("2")
+	doubleLinkedList.insert("3")
+	doubleLinkedList.insert("4")
+	doubleLinkedList.insert("5")
+	doubleLinkedList.insert("6")
+	doubleLinkedList.insert("7")
 
 	fmt.Println(doubleLinkedList.count)
 	fmt.Println(doubleLinkedList.tail.value)

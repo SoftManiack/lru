@@ -1,7 +1,5 @@
 package main
 
-import "fmt"
-
 type Node struct {
 	previous *Node
 	value    string
@@ -27,15 +25,24 @@ func NewDoubleLinkedList(size int) *DoubleLinkedList {
 }
 
 // Вставка в начало списка
-func (l *DoubleLinkedList) insertBegin(value string) Node {
+func (l *DoubleLinkedList) insert(value string) Node {
 
 	var Node Node
 
-	fmt.Println("*")
 	if l.count == l.size {
 
 		l.tail = l.tail.next
+
 		l.tail.previous = nil
+
+		Node.value = value
+		Node.previous = l.head
+		Node.next = nil
+
+		l.head.next = &Node
+
+		l.head = &Node
+
 	} else {
 		if l.head == nil {
 			Node.value = value
@@ -46,8 +53,12 @@ func (l *DoubleLinkedList) insertBegin(value string) Node {
 			l.tail = &Node
 			l.count += 1
 		} else {
+
 			Node.value = value
-			l.head.previous = &Node
+			Node.previous = l.head
+
+			l.head.next = &Node
+
 			l.head = &Node
 			l.count += 1
 		}
@@ -62,7 +73,6 @@ func (l *DoubleLinkedList) RemoveBegin() string {
 	if l.head == nil {
 		return ""
 	}
-
 	var result string = l.head.value
 
 	if l.head == l.tail {
@@ -81,6 +91,7 @@ func (l *DoubleLinkedList) RemoveBegin() string {
 
 // Вставка в конец
 func (l *DoubleLinkedList) insertEnd(value string) {
+
 	if l.tail == nil {
 		node := Node{
 			value:    value,
@@ -94,11 +105,11 @@ func (l *DoubleLinkedList) insertEnd(value string) {
 	} else {
 		node := Node{
 			value:    value,
-			previous: l.tail,
-			next:     nil,
+			previous: nil,
+			next:     l.tail,
 		}
 
-		l.tail.next = &node
+		l.tail.previous = &node
 		l.tail = &node
 	}
 
