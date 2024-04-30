@@ -31,6 +31,8 @@ func (l *DoubleLinkedList) insert(value string) Node {
 
 	if l.count == l.size {
 
+		delete(hashMap, l.tail.value)
+
 		l.tail = l.tail.next
 
 		l.tail.previous = nil
